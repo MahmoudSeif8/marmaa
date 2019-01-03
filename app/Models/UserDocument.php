@@ -10,7 +10,7 @@ namespace App\Models;
 class UserDocument extends Model
 {
     use GetImageTrait;
-    const UPLOAD_FOLDER = '/uploads/userDocuments/';
+    const UPLOAD_FOLDER = '/userDocuments/';
 
     protected $appends = ['image_path'];
 

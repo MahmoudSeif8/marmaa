@@ -10,7 +10,7 @@ namespace App\Models;
 class Feature extends Model
 {
     use GetImageTrait;
-    const UPLOAD_FOLDER = '/uploads/features/';
+    const UPLOAD_FOLDER = '/features/';
 
     protected $appends = ['image_path'];
 }

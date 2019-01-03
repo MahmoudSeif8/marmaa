@@ -7,7 +7,6 @@ namespace App\Models;
  */
 trait GetImageTrait
 {
-
     /**
      * @param $value
      * @return string
@@ -18,7 +17,7 @@ trait GetImageTrait
         if (!$this->attributes['image']) {
             return asset('/assets/images/default-Image.jpg');
         }
-        $main_upload_folder = config('divey.main_upload_folder');
+        $main_upload_folder = config('marmaa.main_upload_folder');
         $class =__CLASS__;
         $user_folder = $class::UPLOAD_FOLDER;
         $image_path = $main_upload_folder.$user_folder.$this->attributes['image'];
@@ -37,7 +36,7 @@ trait GetImageTrait
         }elseif ($this->attributes['provider']){
             return $this->attributes['image'];
         }else {
-            $main_upload_folder = config('divey.main_upload_folder');
+            $main_upload_folder = config('marmaa.main_upload_folder');
             $class = __CLASS__;
             $user_folder = $class::UPLOAD_FOLDER;
             $image_path = $main_upload_folder . $user_folder . $this->attributes['image'];
@@ -52,7 +51,7 @@ trait GetImageTrait
 
     public function getVideoPathAttribute()
     {
-        $main_upload_folder = config('divey.main_upload_folder');
+        $main_upload_folder = config('marmaa.main_upload_folder');
         $class =__CLASS__;
         $video_folder = $class::UPLOAD_FOLDER;
         $video_path = $main_upload_folder.$video_folder.$this->attributes['video'];
@@ -68,7 +67,7 @@ trait GetImageTrait
         if (!$this->attributes['icon']) {
             //return asset('/assets/images/no-image.png');
         }
-        $main_upload_folder = config('divey.main_upload_folder');
+        $main_upload_folder = config('marmaa.main_upload_folder');
         $class =__CLASS__;
         $user_folder = $class::UPLOAD_FOLDER;
         $image_path = $main_upload_folder.$user_folder.$this->attributes['icon'];

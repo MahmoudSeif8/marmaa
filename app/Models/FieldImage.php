@@ -10,7 +10,7 @@ namespace App\Models;
 class FieldImage extends Model
 {
     use GetImageTrait;
-    const UPLOAD_FOLDER = '/uploads/fieldImages/';
+    const UPLOAD_FOLDER = '/fieldImages/';
 
     protected $appends = ['image_path'];
 

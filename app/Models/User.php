@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable , HasApiTokens;
     use GetImageTrait;
-    const UPLOAD_FOLDER = '/uploads/userImages/';
+    const UPLOAD_FOLDER = '/userImages/';
     /**
      * The attributes that are mass assignable.
      *
