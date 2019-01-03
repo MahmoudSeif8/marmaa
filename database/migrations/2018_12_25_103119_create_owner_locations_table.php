@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFieldLocationsTable extends Migration
+class CreateOwnerLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateFieldLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('field_locations', function (Blueprint $table) {
+        Schema::create('owner_locations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('fieldNum');
+            $table->integer('fieldNum')->default(0);
             $table->integer('user_id')->unsigned();
             $table->double('longitude');
             $table->double('latitude');
@@ -40,6 +40,6 @@ class CreateFieldLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('field_locations');
+        Schema::dropIfExists('owner_locations');
     }
 }

@@ -9,5 +9,8 @@ namespace App\Models;
 
 class OwnerUser extends Model
 {
-
+    public function info()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

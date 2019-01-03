@@ -114,7 +114,7 @@ class UserRepo
 
     public function showUserProfile($user)
     {
-        $data['user'] = User::with(['profile','document','position','users'])->find($user->id);
+        $data['user'] = User::with(['profile','document','position'])->find($user->id);
         /*$data = User::with('profile')->where('id',$user->id)
             ->select('name','mobile','email','nationality','image','bio')->first();*/
         return $data;

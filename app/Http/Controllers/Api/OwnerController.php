@@ -43,6 +43,7 @@ class OwnerController extends Controller
         $result['sports'] = $this->ownerRepo->getSportType();
         $result['fieldSize'] = $this->ownerRepo->getFieldSize();
         $result['features'] = $this->ownerRepo->getFeatures();
+        $result['bookingRequest'] = $this->ownerRepo->getBookingRequest();
         if (!empty($result)) {
             return response()->json(['code' => 200, 'message' => $result, 'item' => '']);
         } else {
@@ -136,6 +137,17 @@ class OwnerController extends Controller
             }  elseif ($result['success']) {
                 return response()->json(['code' => 200, 'message' => 'User Added Successfully','item' => '']);
             }
+        }
+    }
+
+    //Get list of Owner Users
+    public function ownerUsers()
+    {
+        $result = $this->ownerRepo->getOwnerUsers(Auth::user());
+        if (!empty($result)) {
+            return response()->json(['code' => 200, 'message' => $result, 'item' => '']);
+        } else {
+            return response()->json(['code' => 100, 'message' => 'Error', 'item' => '']);
         }
     }
 }

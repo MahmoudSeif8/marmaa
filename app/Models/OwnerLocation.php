@@ -7,7 +7,7 @@
  */
 namespace App\Models;
 
-class FieldLocation extends Model
+class OwnerLocation extends Model
 {
     public function field()
     {

@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(PlayerPosition::class);
     }
 
-    public function users()
+    public function owner()
     {
         return $this->hasMany(OwnerUser::class,'field_owner_id');
     }

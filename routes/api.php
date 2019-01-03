@@ -45,9 +45,10 @@ Route::group(['namespace' => 'Api' , 'middleware' => 'cors' , 'prefix' => 'v1'],
     Route::group(['prefix' =>'owner', 'middleware' => 'auth:api'], function () {
         Route::post('/store/location' , 'OwnerController@addLocation')->name('api-create-location');
         Route::get('/locations' , 'OwnerController@getOwnerLocations')->name('api-owner-locations');
-        Route::post('/stor`e/field' , 'OwnerController@addField')->name('api-create-field');
+        Route::post('/store/field' , 'OwnerController@addField')->name('api-create-field');
         Route::post('/upload/field/images' , 'OwnerController@fieldImages')->name('api-upload-field-images');
         Route::post('/add/user', 'AuthController@newUser')->name('api-add-owner-user');
+        Route::get('/users' , 'OwnerController@ownerUsers')->name('api-owner-users');
     });
 });
 

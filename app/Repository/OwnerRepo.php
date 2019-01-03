@@ -7,11 +7,12 @@
  */
 namespace App\Repository;
 
+use App\Models\BookingRequest;
 use App\Models\Country;
 use App\Models\Feature;
 use App\Models\Field;
 use App\Models\FieldImage;
-use App\Models\FieldLocation;
+use App\Models\OwnerLocation;
 use App\Models\FieldSize;
 use App\Models\OwnerUser;
 use App\Models\PlaygroundType;
@@ -54,7 +55,7 @@ class OwnerRepo
     {
         $this->validator = Validator::make($this->request->all(), [
             'name' => 'required|string|max:255',
-            'field_location_id' => 'required|integer',
+            'owner_location_id' => 'required|integer',
             'sport_type_id' => 'required|integer',
             'playground_type_id' => 'required|integer',
         ]);
@@ -98,6 +99,12 @@ class OwnerRepo
         return $fieldSize;
     }
 
+    public function getBookingRequest()
+    {
+        $bookingRequest = BookingRequest::all();
+        return $bookingRequest;
+    }
+
     public function storeLocation($user)
     {
         $this->LocationValidator();
@@ -106,9 +113,8 @@ class OwnerRepo
         } else {
             DB::beginTransaction();
             try {
-                FieldLocation::create([
+                OwnerLocation::create([
                     'name' => $this->request->name,
-                    'fieldNum'=> $this->request->fieldNum,
                     'user_id' => $user->id,
                     'longitude' => $this->request->longitude,
                     'latitude'=> $this->request->latitude,
@@ -127,7 +133,7 @@ class OwnerRepo
 
     public function listLocations($user)
     {
-        $locations = FieldLocation::where('user_id',$user->id)->select('id','name')->get();
+        $locations = OwnerLocation::where('user_id',$user->id)->select('id','name')->get();
         return $locations;
     }
 
@@ -139,32 +145,32 @@ class OwnerRepo
         } else {
             DB::beginTransaction();
             try {
-                $fields = FieldLocation::with('field')->where('id',$this->request->field_location_id)->first();
-                if (count($fields->field) < $fields->fieldNum){
-                    //license
-                    $fieldInformation = [
-                        'name' => $this->request->name,
-                        'field_location_id' => $this->request->field_location_id,
-                        'sport_type_id' => $this->request->sport_type_id,
-                        'playground_type_id' => $this->request->playground_type_id,
-                        'forWomen' => $this->request->forWomen,
+                $locationFields = OwnerLocation::with('field')->where('id',$this->request->owner_location_id)->first();
+                $fields = count($locationFields->field);
+                //license
+                $fieldInformation = [
+                    'name' => $this->request->name,
+                    'owner_location_id' => $this->request->owner_location_id,
+                    'sport_type_id' => $this->request->sport_type_id,
+                    'playground_type_id' => $this->request->playground_type_id,
+                    'forWomen' => $this->request->forWomen,
+                    'booking_request_id' => $this->request->booking_request_id,
+                ];
+                if ($this->request->sport_type_id == 1){
+                    $fieldSize = [
+                        'field_size_id' => $this->request->field_size_id,
                     ];
-                    if ($this->request->sport_type_id == 1){
-                        $fieldSize = [
-                            'field_size_id' => $this->request->field_size_id,
-                        ];
-                        $data = array_merge($fieldInformation,$fieldSize);
-                        Field::create($data);
-                    }
-                    else{
-                        Field::create($fieldInformation);
-                    }
-
-                    DB::commit();
-                    return $this->result = ['validator' => "", 'success' => 'success', 'errors' => ""];
+                    $data = array_merge($fieldInformation,$fieldSize);
+                    Field::create($data);
                 }
-                else
-                    return $this->result = ['validator' => "exceedFields", 'success' => "", 'errors' => ""];
+                else{
+                    Field::create($fieldInformation);
+                }
+                $locationFields->fieldNum = $fields + 1;
+                $locationFields->save();
+
+                DB::commit();
+                return $this->result = ['validator' => "", 'success' => 'success', 'errors' => ""];
             } catch (\Exception $exception) {
                 DB::rollback();
                 return $this->result = ['validator' => "", 'success' => "", 'errors' => $exception];
@@ -213,5 +219,15 @@ class OwnerRepo
                 return $this->result = ['validator' => "", 'success' => "", 'errors' => $exception];
             }
         }
+    }
+
+    public function getOwnerUsers($user)
+    {
+        $location = User::with('owner')->where('id',$user->id)->first();
+        foreach ($location->owner as $user)
+        {
+            dd($user->user_id);
+        }
+        return $location;
     }
 }

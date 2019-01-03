@@ -16,7 +16,7 @@ class CreateFieldsTable extends Migration
         Schema::create('fields', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('field_location_id')->unsigned();
+            $table->integer('owner_location_id')->unsigned();
             $table->integer('sport_type_id')->unsigned();
             $table->integer('field_size_id')->nullable()->unsigned();
             $table->integer('playground_type_id')->unsigned();
@@ -25,7 +25,7 @@ class CreateFieldsTable extends Migration
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
 
-            $table->foreign('field_location_id')->references('id')->on('field_locations')->onDelete('cascade');
+            $table->foreign('owner_location_id')->references('id')->on('owner_locations')->onDelete('cascade');
             $table->foreign('sport_type_id')->references('id')->on('sport_types')->onDelete('cascade');
             $table->foreign('field_size_id')->references('id')->on('field_sizes')->onDelete('cascade');
             $table->foreign('playground_type_id')->references('id')->on('playground_types')->onDelete('cascade');

@@ -11,7 +11,7 @@ class Field extends Model
 {
     public function location()
     {
-        return $this->belongsTo(FieldLocation::class);
+        return $this->belongsTo(OwnerLocation::class);
     }
 
     public function images()
