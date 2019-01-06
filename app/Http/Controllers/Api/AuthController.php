@@ -20,9 +20,11 @@ class AuthController extends AccessTokenController
     {
         $httpRequest = request();
         $httpRequest->request->add([
-            'login' => $httpRequest->username
+            'login' => $httpRequest->username,
+            'grant_type' => 'password',
+            'client_id' => 4,
+            'client_secret' => 'SbXb9KCAnV8srWtaRRKaVIMyIjmTFRw7hdmzQGpg',
         ]);
-
         if (!$httpRequest->all()) {
             return response()->json(['code' => 100, 'message' => 'No Parameters Found', 'item' => '']);
         } else {

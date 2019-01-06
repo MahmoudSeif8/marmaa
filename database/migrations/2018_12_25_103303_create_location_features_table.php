@@ -14,6 +14,9 @@ class CreateLocationFeaturesTable extends Migration
     public function up()
     {
         Schema::create('location_features', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
+            $table->engine = 'InnoDB' ;
             $table->increments('id');
             $table->integer('field_location_id')->unsigned();
             $table->integer('feature_id')->unsigned();

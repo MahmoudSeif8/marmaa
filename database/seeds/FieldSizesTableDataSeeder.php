@@ -16,37 +16,37 @@ class FieldSizesTableDataSeeder extends Seeder
             switch ($i) {
                 case 1:
                     FieldSize::create([
-                        'name' => '5x5',
+                        'size' => '5x5',
                     ]);
                     break;
                 case 2:
                     FieldSize::create([
-                        'name' => '6x6',
+                        'size' => '6x6',
                     ]);
                     break;
                 case 3:
                     FieldSize::create([
-                        'name' => '7x7',
+                        'size' => '7x7',
                     ]);
                     break;
                 case 4:
                     FieldSize::create([
-                        'name' => '8x8',
+                        'size' => '8x8',
                     ]);
                     break;
                 case 5:
                     FieldSize::create([
-                        'name' => '9x9',
+                        'size' => '9x9',
                     ]);
                     break;
                 case 6:
                     FieldSize::create([
-                        'name' => '10x10',
+                        'size' => '10x10',
                     ]);
                     break;
                 case 7:
                     FieldSize::create([
-                        'name' => '11x11',
+                        'size' => '11x11',
                     ]);
                     break;
                 default:

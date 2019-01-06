@@ -14,6 +14,9 @@ class CreateFieldSizesTable extends Migration
     public function up()
     {
         Schema::create('field_sizes', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
+            $table->engine = 'InnoDB' ;
             $table->increments('id');
             $table->string('size');
             $table->timestamps();

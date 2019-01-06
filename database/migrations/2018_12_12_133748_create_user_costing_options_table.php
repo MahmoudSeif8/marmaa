@@ -14,6 +14,9 @@ class CreateUserCostingOptionsTable extends Migration
     public function up()
     {
         Schema::create('user_costing_options', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
+            $table->engine = 'InnoDB' ;
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('costing_option_id')->unsigned();

@@ -52,6 +52,39 @@ class RegistrationRepo
 
     public function login()
     {
+        /*if (Auth::attempt(['email' => $this->request->username ,'password' => $this->request->password])) {
+            if(Auth::user()->isVerify == 0){
+                $this->result = ['message' => 'notVerify', 'item' => ''];
+                return $this->result;
+            }
+            else {
+                $client = new Client(['base_uri' => 'http://127.0.0.1:8000']);
+                dd($client);
+                $response = $client->request('POST', 'http://127.0.0.1:8000/api/v1/auth/login', [
+                    'form_params' => [
+                        'grant_type' => 'password',
+                        'client_id' => '4',
+                        'client_secret' => 'SbXb9KCAnV8srWtaRRKaVIMyIjmTFRw7hdmzQGpg',
+                        'username' => $this->request->username,
+                        'password' => $this->request->passowrd,
+                        'scope' => '*',
+                    ],
+                ]);
+                if ($response->getStatusCode() == 200) {
+                    $data = json_decode($response->getBody());
+                    $this->result = ['message' => 'success', 'item' => $data];
+                    return $this->result;
+                }
+                else{
+                    $this->result = ['message' => 'failed', 'item' => ''];
+                    return $this->result;
+                }
+            }
+        }
+        else {
+            $this->result = ['message' => 'errors', 'item' => ''];
+            return $this->result;
+        }*/
         $field = 'email';
         if (filter_var($this->request->input('login'), FILTER_VALIDATE_EMAIL)) {
             $field = 'email';
@@ -74,7 +107,7 @@ class RegistrationRepo
         }
     }
 
-    public function generate_code($length) {
+    public function generateCode($length) {
         $characters = '0123456789';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -133,7 +166,7 @@ class RegistrationRepo
                     ]);
                 }
 
-                $activateCode = $this->generate_code(6);
+                $activateCode = $this->generateCode(6);
                 UserVerification::create([
                     'user_id' => $newUser->id,
                     'verification_code' => $activateCode,

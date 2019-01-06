@@ -14,6 +14,9 @@ class CreateCitiesTable extends Migration
     public function up()
     {
         Schema::create('cities', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
+            $table->engine = 'InnoDB' ;
             $table->increments('id');
             $table->string('name');
             $table->integer('country_id')->unsigned();

@@ -14,6 +14,9 @@ class CreateUserBankAccountsTable extends Migration
     public function up()
     {
         Schema::create('user_bank_accounts', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
+            $table->engine = 'InnoDB' ;
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('bank_name');

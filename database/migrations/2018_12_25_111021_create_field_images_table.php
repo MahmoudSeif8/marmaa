@@ -14,6 +14,9 @@ class CreateFieldImagesTable extends Migration
     public function up()
     {
         Schema::create('field_images', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
+            $table->engine = 'InnoDB' ;
             $table->increments('id');
             $table->integer('field_id')->unsigned();
             $table->string('image');

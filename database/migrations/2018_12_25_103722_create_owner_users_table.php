@@ -14,6 +14,9 @@ class CreateOwnerUsersTable extends Migration
     public function up()
     {
         Schema::create('owner_users', function (Blueprint $table) {
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_general_ci';
+            $table->engine = 'InnoDB' ;
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('field_owner_id')->unsigned();
